@@ -5,7 +5,7 @@ function removeKeyboard() {
     keyboard.remove(); 
 }
 
-let abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p","q","r","s","u","v","w","x","y","z"];
+let abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p","q","r","s","t","u","v","w","x","y","z"];
 let letters = [];
 let word = '';
 
