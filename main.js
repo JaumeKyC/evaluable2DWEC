@@ -13,16 +13,28 @@ let string2 = '';
 
 document.addEventListener('keyup', function (tecla) {
 
-if (tecla.key == array1[i]) {
-string1 += (tecla.key);
-i++;
-
-if (string1 == "abracadabra") {
-string1 = "";
-i = 0;
-document.body.appendChild(keyboard);
-}
-}
+    if (tecla.key == array1[i]) {
+        string1 += (tecla.key);
+        i++;
+        console.log(string1);
+        if (string1 == "abracadabra") {
+            string1 = "";
+            i = 0;
+            document.body.appendChild(keyboard);
+        }
+    }
+    let buttons = document.getElementsByTagName("button");
+    let word = "";
+    for (let i = 0; i < buttons.length-1; i++) {
+        buttons[i].addEventListener("click", function(event){
+            word += this.value;
+        });
+    }
+    buttons[buttons.length - 1].addEventListener("click", function(event){
+        event.preventDefault();
+        console.log(word);
+        saveInLocalStorage(word);
+    })
 });
 document.addEventListener('keyup', function (tecla) {
 if (tecla.key == array2[o]) {
@@ -37,29 +49,33 @@ keyboard.remove();
 });
 //FIN PARTE DE JAUME
 
-//PRINCIPIO PARTE NATALIA
-let abc = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+function removeKeyboard() {
+    let keyboard = document.getElementById("keyboard-cont");
+    keyboard.remove();
+}
+
+let abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p","q","r","s","t","u","v","w","x","y","z"];
 let letters = [];
-let word = "";
+let word = '';
 
 for (let i = 0; i < abc.length; i++) {
-document.querySelector(`[value = ${abc[i]} ]`)
-.addEventListener("click", function (e) {
-e.preventDefault();
-saveLetters(`${abc[i]}`);
-});
+    document.querySelector(`[value = ${abc[i]} ]`).addEventListener('click', function (e) {
+        e.preventDefault();
+        saveLetters(`${abc[i]}`);    
+    })
 }
 
 function saveLetters(letter) {
-letters.push(letter);
+    letters.push(letter);
 }
 
-document.querySelector("[value = submit]").addEventListener("click", function (e) {
-e.preventDefault();
-word = letters.join("");
-letters = [];
-saveInLocalStorage(word);
-});
+document.querySelector("[value = submit]").addEventListener("click",function (e) {
+    e.preventDefault();
+    word = letters.join('');
+    letters = [];
+    console.log(word)
+    saveInLocalStorage(word);
+})
 
 function saveInLocalStorage(word) {
 localStorage.setItem(localStorage.length + 1, word);
